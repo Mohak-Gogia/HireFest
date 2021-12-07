@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HireFest_newModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AssessmentInfo">
+          <Key>
+            <PropertyRef Name="AssessmentId" />
+          </Key>
+          <Property Name="AssessmentId" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Topics" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AssessmentQuestions">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="bigint" Nullable="false" />
+          <Property Name="assessmentInfoId" Type="bigint" />
+          <Property Name="Question" Type="nvarchar(max)" />
+          <Property Name="Time" Type="int" />
+          <Property Name="Score" Type="int" />
+        </EntityType>
+        <EntityType Name="CandidateAnswers">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="candidateAssessmentId" Type="bigint" />
+          <Property Name="assessmentQuestionId" Type="bigint" />
+          <Property Name="questionOptionId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="CandidateAssessment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" Nullable="false" />
+          <Property Name="candidateId" Type="bigint" />
+          <Property Name="assessmentId" Type="bigint" />
+          <Property Name="Score" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="candidateId" />
+          </Key>
+          <Property Name="candidateId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fName" Type="nvarchar" MaxLength="50" />
+          <Property Name="lName" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="phoneno" Type="nvarchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="QuestionOptions">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="isAnswer" Type="bit" />
+          <Property Name="assessmentQuestionId" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_AssessmentQuestions_AssessmentInfo">
+          <End Role="AssessmentInfo" Type="Self.AssessmentInfo" Multiplicity="0..1" />
+          <End Role="AssessmentQuestions" Type="Self.AssessmentQuestions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentInfo">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="AssessmentQuestions">
+              <PropertyRef Name="assessmentInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_AssessmentQuestions">
+          <End Role="AssessmentQuestions" Type="Self.AssessmentQuestions" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="Self.CandidateAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentQuestions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="assessmentQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_CandidateAssessment">
+          <End Role="CandidateAssessment" Type="Self.CandidateAssessment" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="Self.CandidateAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateAssessment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="candidateAssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_QuestionOptions">
+          <End Role="QuestionOptions" Type="Self.QuestionOptions" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="Self.CandidateAnswers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOptions">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="questionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAssessment_AssessmentInfo">
+          <End Role="AssessmentInfo" Type="Self.AssessmentInfo" Multiplicity="0..1" />
+          <End Role="CandidateAssessment" Type="Self.CandidateAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentInfo">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="CandidateAssessment">
+              <PropertyRef Name="assessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAssessment_Profile">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="CandidateAssessment" Type="Self.CandidateAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="candidateId" />
+            </Principal>
+            <Dependent Role="CandidateAssessment">
+              <PropertyRef Name="candidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOptions_AssessmentQuestions">
+          <End Role="AssessmentQuestions" Type="Self.AssessmentQuestions" Multiplicity="0..1" />
+          <End Role="QuestionOptions" Type="Self.QuestionOptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentQuestions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOptions">
+              <PropertyRef Name="assessmentQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HireFest_newModelStoreContainer">
+          <EntitySet Name="AssessmentInfo" EntityType="Self.AssessmentInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssessmentQuestions" EntityType="Self.AssessmentQuestions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateAnswers" EntityType="Self.CandidateAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CandidateAssessment" EntityType="Self.CandidateAssessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionOptions" EntityType="Self.QuestionOptions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AssessmentQuestions_AssessmentInfo" Association="Self.FK_AssessmentQuestions_AssessmentInfo">
+            <End Role="AssessmentInfo" EntitySet="AssessmentInfo" />
+            <End Role="AssessmentQuestions" EntitySet="AssessmentQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_AssessmentQuestions" Association="Self.FK_CandidateAnswers_AssessmentQuestions">
+            <End Role="AssessmentQuestions" EntitySet="AssessmentQuestions" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_CandidateAssessment" Association="Self.FK_CandidateAnswers_CandidateAssessment">
+            <End Role="CandidateAssessment" EntitySet="CandidateAssessment" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_QuestionOptions" Association="Self.FK_CandidateAnswers_QuestionOptions">
+            <End Role="QuestionOptions" EntitySet="QuestionOptions" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAssessment_AssessmentInfo" Association="Self.FK_CandidateAssessment_AssessmentInfo">
+            <End Role="AssessmentInfo" EntitySet="AssessmentInfo" />
+            <End Role="CandidateAssessment" EntitySet="CandidateAssessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAssessment_Profile" Association="Self.FK_CandidateAssessment_Profile">
+            <End Role="Profile" EntitySet="Profile" />
+            <End Role="CandidateAssessment" EntitySet="CandidateAssessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOptions_AssessmentQuestions" Association="Self.FK_QuestionOptions_AssessmentQuestions">
+            <End Role="AssessmentQuestions" EntitySet="AssessmentQuestions" />
+            <End Role="QuestionOptions" EntitySet="QuestionOptions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HireFest_newModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AssessmentInfo">
+          <Key>
+            <PropertyRef Name="AssessmentId" />
+          </Key>
+          <Property Name="AssessmentId" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Topics" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AssessmentQuestions" Relationship="Self.FK_AssessmentQuestions_AssessmentInfo" FromRole="AssessmentInfo" ToRole="AssessmentQuestions" />
+          <NavigationProperty Name="CandidateAssessments" Relationship="Self.FK_CandidateAssessment_AssessmentInfo" FromRole="AssessmentInfo" ToRole="CandidateAssessment" />
+        </EntityType>
+        <EntityType Name="AssessmentQuestion">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Int64" Nullable="false" />
+          <Property Name="assessmentInfoId" Type="Int64" />
+          <Property Name="Question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="Int32" />
+          <Property Name="Score" Type="Int32" />
+          <NavigationProperty Name="AssessmentInfo" Relationship="Self.FK_AssessmentQuestions_AssessmentInfo" FromRole="AssessmentQuestions" ToRole="AssessmentInfo" />
+          <NavigationProperty Name="CandidateAnswers" Relationship="Self.FK_CandidateAnswers_AssessmentQuestions" FromRole="AssessmentQuestions" ToRole="CandidateAnswers" />
+          <NavigationProperty Name="QuestionOptions" Relationship="Self.FK_QuestionOptions_AssessmentQuestions" FromRole="AssessmentQuestions" ToRole="QuestionOptions" />
+        </EntityType>
+        <EntityType Name="CandidateAnswer">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="candidateAssessmentId" Type="Int64" />
+          <Property Name="assessmentQuestionId" Type="Int64" />
+          <Property Name="questionOptionId" Type="Int64" />
+          <NavigationProperty Name="AssessmentQuestion" Relationship="Self.FK_CandidateAnswers_AssessmentQuestions" FromRole="CandidateAnswers" ToRole="AssessmentQuestions" />
+          <NavigationProperty Name="CandidateAssessment" Relationship="Self.FK_CandidateAnswers_CandidateAssessment" FromRole="CandidateAnswers" ToRole="CandidateAssessment" />
+          <NavigationProperty Name="QuestionOption" Relationship="Self.FK_CandidateAnswers_QuestionOptions" FromRole="CandidateAnswers" ToRole="QuestionOptions" />
+        </EntityType>
+        <EntityType Name="CandidateAssessment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" />
+          <Property Name="candidateId" Type="Int64" />
+          <Property Name="assessmentId" Type="Int64" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AssessmentInfo" Relationship="Self.FK_CandidateAssessment_AssessmentInfo" FromRole="CandidateAssessment" ToRole="AssessmentInfo" />
+          <NavigationProperty Name="CandidateAnswers" Relationship="Self.FK_CandidateAnswers_CandidateAssessment" FromRole="CandidateAssessment" ToRole="CandidateAnswers" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_CandidateAssessment_Profile" FromRole="CandidateAssessment" ToRole="Profile" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="candidateId" />
+          </Key>
+          <Property Name="candidateId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="lName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phoneno" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CandidateAssessments" Relationship="Self.FK_CandidateAssessment_Profile" FromRole="Profile" ToRole="CandidateAssessment" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="isAnswer" Type="Boolean" />
+          <Property Name="assessmentQuestionId" Type="Int64" />
+          <NavigationProperty Name="AssessmentQuestion" Relationship="Self.FK_QuestionOptions_AssessmentQuestions" FromRole="QuestionOptions" ToRole="AssessmentQuestions" />
+          <NavigationProperty Name="CandidateAnswers" Relationship="Self.FK_CandidateAnswers_QuestionOptions" FromRole="QuestionOptions" ToRole="CandidateAnswers" />
+        </EntityType>
+        <Association Name="FK_AssessmentQuestions_AssessmentInfo">
+          <End Role="AssessmentInfo" Type="Self.AssessmentInfo" Multiplicity="0..1" />
+          <End Role="AssessmentQuestions" Type="Self.AssessmentQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentInfo">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="AssessmentQuestions">
+              <PropertyRef Name="assessmentInfoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAssessment_AssessmentInfo">
+          <End Role="AssessmentInfo" Type="Self.AssessmentInfo" Multiplicity="0..1" />
+          <End Role="CandidateAssessment" Type="Self.CandidateAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentInfo">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="CandidateAssessment">
+              <PropertyRef Name="assessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_AssessmentQuestions">
+          <End Role="AssessmentQuestions" Type="Self.AssessmentQuestion" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="Self.CandidateAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentQuestions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="assessmentQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOptions_AssessmentQuestions">
+          <End Role="AssessmentQuestions" Type="Self.AssessmentQuestion" Multiplicity="0..1" />
+          <End Role="QuestionOptions" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AssessmentQuestions">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOptions">
+              <PropertyRef Name="assessmentQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_CandidateAssessment">
+          <End Role="CandidateAssessment" Type="Self.CandidateAssessment" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="Self.CandidateAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CandidateAssessment">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="candidateAssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAnswers_QuestionOptions">
+          <End Role="QuestionOptions" Type="Self.QuestionOption" Multiplicity="0..1" />
+          <End Role="CandidateAnswers" Type="Self.CandidateAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOptions">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="CandidateAnswers">
+              <PropertyRef Name="questionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CandidateAssessment_Profile">
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <End Role="CandidateAssessment" Type="Self.CandidateAssessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="candidateId" />
+            </Principal>
+            <Dependent Role="CandidateAssessment">
+              <PropertyRef Name="candidateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HireFestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AssessmentInfoes" EntityType="Self.AssessmentInfo" />
+          <EntitySet Name="AssessmentQuestions" EntityType="Self.AssessmentQuestion" />
+          <EntitySet Name="CandidateAnswers" EntityType="Self.CandidateAnswer" />
+          <EntitySet Name="CandidateAssessments" EntityType="Self.CandidateAssessment" />
+          <EntitySet Name="Profiles" EntityType="Self.Profile" />
+          <EntitySet Name="QuestionOptions" EntityType="Self.QuestionOption" />
+          <AssociationSet Name="FK_AssessmentQuestions_AssessmentInfo" Association="Self.FK_AssessmentQuestions_AssessmentInfo">
+            <End Role="AssessmentInfo" EntitySet="AssessmentInfoes" />
+            <End Role="AssessmentQuestions" EntitySet="AssessmentQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAssessment_AssessmentInfo" Association="Self.FK_CandidateAssessment_AssessmentInfo">
+            <End Role="AssessmentInfo" EntitySet="AssessmentInfoes" />
+            <End Role="CandidateAssessment" EntitySet="CandidateAssessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_AssessmentQuestions" Association="Self.FK_CandidateAnswers_AssessmentQuestions">
+            <End Role="AssessmentQuestions" EntitySet="AssessmentQuestions" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOptions_AssessmentQuestions" Association="Self.FK_QuestionOptions_AssessmentQuestions">
+            <End Role="AssessmentQuestions" EntitySet="AssessmentQuestions" />
+            <End Role="QuestionOptions" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_CandidateAssessment" Association="Self.FK_CandidateAnswers_CandidateAssessment">
+            <End Role="CandidateAssessment" EntitySet="CandidateAssessments" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAnswers_QuestionOptions" Association="Self.FK_CandidateAnswers_QuestionOptions">
+            <End Role="QuestionOptions" EntitySet="QuestionOptions" />
+            <End Role="CandidateAnswers" EntitySet="CandidateAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CandidateAssessment_Profile" Association="Self.FK_CandidateAssessment_Profile">
+            <End Role="Profile" EntitySet="Profiles" />
+            <End Role="CandidateAssessment" EntitySet="CandidateAssessments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HireFest_newModelStoreContainer" CdmEntityContainer="HireFestEntities">
+          <EntitySetMapping Name="AssessmentInfoes">
+            <EntityTypeMapping TypeName="HireFest_newModel.AssessmentInfo">
+              <MappingFragment StoreEntitySet="AssessmentInfo">
+                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Topics" ColumnName="Topics" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssessmentQuestions">
+            <EntityTypeMapping TypeName="HireFest_newModel.AssessmentQuestion">
+              <MappingFragment StoreEntitySet="AssessmentQuestions">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="assessmentInfoId" ColumnName="assessmentInfoId" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateAnswers">
+            <EntityTypeMapping TypeName="HireFest_newModel.CandidateAnswer">
+              <MappingFragment StoreEntitySet="CandidateAnswers">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="candidateAssessmentId" ColumnName="candidateAssessmentId" />
+                <ScalarProperty Name="assessmentQuestionId" ColumnName="assessmentQuestionId" />
+                <ScalarProperty Name="questionOptionId" ColumnName="questionOptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CandidateAssessments">
+            <EntityTypeMapping TypeName="HireFest_newModel.CandidateAssessment">
+              <MappingFragment StoreEntitySet="CandidateAssessment">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="candidateId" ColumnName="candidateId" />
+                <ScalarProperty Name="assessmentId" ColumnName="assessmentId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="HireFest_newModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="candidateId" ColumnName="candidateId" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="lName" ColumnName="lName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="HireFest_newModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOptions">
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="isAnswer" ColumnName="isAnswer" />
+                <ScalarProperty Name="assessmentQuestionId" ColumnName="assessmentQuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

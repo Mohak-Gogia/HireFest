@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HireFest_newModelStoreContainer" CdmEntityContainer="HireFestEntities">
+    <EntitySetMapping Name="AssessmentInfoes">
+      <EntityTypeMapping TypeName="HireFest_newModel.AssessmentInfo">
+        <MappingFragment StoreEntitySet="AssessmentInfo">
+          <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Topics" ColumnName="Topics" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssessmentQuestions">
+      <EntityTypeMapping TypeName="HireFest_newModel.AssessmentQuestion">
+        <MappingFragment StoreEntitySet="AssessmentQuestions">
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="assessmentInfoId" ColumnName="assessmentInfoId" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CandidateAnswers">
+      <EntityTypeMapping TypeName="HireFest_newModel.CandidateAnswer">
+        <MappingFragment StoreEntitySet="CandidateAnswers">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="candidateAssessmentId" ColumnName="candidateAssessmentId" />
+          <ScalarProperty Name="assessmentQuestionId" ColumnName="assessmentQuestionId" />
+          <ScalarProperty Name="questionOptionId" ColumnName="questionOptionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CandidateAssessments">
+      <EntityTypeMapping TypeName="HireFest_newModel.CandidateAssessment">
+        <MappingFragment StoreEntitySet="CandidateAssessment">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="candidateId" ColumnName="candidateId" />
+          <ScalarProperty Name="assessmentId" ColumnName="assessmentId" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profiles">
+      <EntityTypeMapping TypeName="HireFest_newModel.Profile">
+        <MappingFragment StoreEntitySet="Profile">
+          <ScalarProperty Name="candidateId" ColumnName="candidateId" />
+          <ScalarProperty Name="fName" ColumnName="fName" />
+          <ScalarProperty Name="lName" ColumnName="lName" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionOptions">
+      <EntityTypeMapping TypeName="HireFest_newModel.QuestionOption">
+        <MappingFragment StoreEntitySet="QuestionOptions">
+          <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="isAnswer" ColumnName="isAnswer" />
+          <ScalarProperty Name="assessmentQuestionId" ColumnName="assessmentQuestionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

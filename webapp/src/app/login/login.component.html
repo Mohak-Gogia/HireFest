@@ -1,0 +1,37 @@
+<div class="w3l-hotair-form">
+    <h1>HireFest Login</h1>
+    <div class="container">
+        <div class="workinghny-form-grid">
+            <div class="main-hotair">
+                <div class="content-wthree">
+                    <h2>Candidate Log In</h2> 
+                    <form [formGroup]="service.loginFormModel" (ngSubmit)="onSubmit()" novalidate>
+                        <div>
+                            <input type="email" class="email" formControlName="Email" placeholder="Email Id">
+                            <div *ngIf="service.loginFormModel.controls.Email.errors && service.loginFormModel.controls.Email?.touched" class="text-danger">
+                                <div *ngIf="service.loginFormModel.controls.Email.errors.required">Email is required</div>
+                                <div *ngIf="service.loginFormModel.controls.Email">Email must be valid</div>
+                            </div>
+                        </div>                  
+                        <br>
+                        <div>
+                            <input type="password" class="password" formControlName="Password" placeholder="Password" required="">
+                            <div *ngIf="service.loginFormModel.controls.Password.errors && service.loginFormModel.controls.Password?.touched" class="text-danger">
+                                <div *ngIf="service.loginFormModel.controls.Password.errors.required">Password is required</div>
+                                <div *ngIf="!service.loginFormModel.controls.Password.errors?.minLength">Password shoud be at least 6 characters</div>
+                            </div>
+                        </div>
+                        <button class="btn" type="submit" [disabled]="!service.loginFormModel.valid">Log In</button>
+                    </form>
+
+                    <p class="account">Don't have an account? <a (click)="goToSignup()">Register</a></p>
+                </div>
+                <div class="w3l_form align-self">
+                    <div class="left_grid_info">
+                        <img src="assets/img/1.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

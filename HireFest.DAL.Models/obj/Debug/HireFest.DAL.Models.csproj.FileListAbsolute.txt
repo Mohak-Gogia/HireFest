@@ -1,0 +1,6 @@
+C:\Users\mohak.gogia\Downloads\HireFest\Backend\HireFest\HireFest.DAL.Models\bin\Debug\HireFest.DAL.Models.dll
+C:\Users\mohak.gogia\Downloads\HireFest\Backend\HireFest\HireFest.DAL.Models\bin\Debug\HireFest.DAL.Models.pdb
+C:\Users\mohak.gogia\Downloads\HireFest\Backend\HireFest\HireFest.DAL.Models\obj\Debug\HireFest.DAL.Models.csprojAssemblyReference.cache
+C:\Users\mohak.gogia\Downloads\HireFest\Backend\HireFest\HireFest.DAL.Models\obj\Debug\HireFest.DAL.Models.csproj.CoreCompileInputs.cache
+C:\Users\mohak.gogia\Downloads\HireFest\Backend\HireFest\HireFest.DAL.Models\obj\Debug\HireFest.DAL.Models.dll
+C:\Users\mohak.gogia\Downloads\HireFest\Backend\HireFest\HireFest.DAL.Models\obj\Debug\HireFest.DAL.Models.pdb
