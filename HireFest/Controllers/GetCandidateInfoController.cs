@@ -12,7 +12,7 @@ namespace HireFest.Controllers
     public class GetCandidateInfoController : ApiController
     {
         [HttpGet]
-        public IEnumerable<Profile> GetAssessmentInfo()
+        public Profile GetCandidateInfo()
         {
             FetchService fetch = new FetchService();
             return fetch.FetchCandidateInfo();

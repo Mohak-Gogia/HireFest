@@ -8,7 +8,20 @@ using Dapper;
 
 namespace HireFestDAL.Classes
 {
-    public class DBOperations
+
+    public interface IDBOperations
+    {
+        int Login(Register acc);
+        void Signup(Register acc);
+        IEnumerable<AssessmentInformation> FetchAssessmentInfo();
+        IEnumerable<TestInformation> FetchTestInfo(int ID);
+        Profile FetchCandidateInfo();
+        void SaveResponses(CandidateResponse resp);
+        void SaveResult(CandidateResult result);
+    }
+
+
+    public class DBOperations : IDBOperations
     {
         private readonly string configString = ConfigurationManager.ConnectionStrings["SQLDatabase"].ConnectionString;
 
@@ -80,13 +93,13 @@ namespace HireFestDAL.Classes
             }
         }
 
-        public IEnumerable<Profile> FetchCandidateInfo()
+        public Profile FetchCandidateInfo()
         {
             using (IDbConnection db = Connection)
             {
                 string sql = @"Select fName,lName,email,phoneno from Profile";
                 db.Open();
-                return db.Query<Profile>(sql);
+                return db.QuerySingle<Profile>(sql);
             }
         }
 

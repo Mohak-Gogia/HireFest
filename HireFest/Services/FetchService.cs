@@ -7,7 +7,15 @@ using System.Web;
 
 namespace HireFest.Services
 {
-    public class FetchService
+    public interface IFetchService
+    {
+        IEnumerable<AssessmentInformation> FetchAssessmentInfo();
+        IEnumerable<TestInformation> FetchTestInfo(int id);
+        Profile FetchCandidateInfo();
+    }
+
+
+    public class FetchService : IFetchService
     {
         public IEnumerable<AssessmentInformation> FetchAssessmentInfo()
         {
@@ -21,7 +29,7 @@ namespace HireFest.Services
             return _operations.FetchTestInfo(id);
         }
 
-        public IEnumerable<Profile> FetchCandidateInfo()
+        public Profile FetchCandidateInfo()
         {
             DBOperations _operations = new DBOperations();
             return _operations.FetchCandidateInfo();

@@ -17,7 +17,7 @@
         </ul>
     </nav>
     <div>
-        <div class="container ">
+        <div *ngIf="this.CandidateInfo != null" class="container ">
             <div class="row d-flex justify-content center">
                 <div class="col-md-10 mt-5 pt-5">
                     <div class="row  z-depth-3 border border-dark rounded bg-light text-dark">
@@ -34,21 +34,21 @@
                             <div class="row mt-5 text-center">
                                 <div class="col-sm-6">
                                     <p class="font-weight-bold">First Name:</p>
-                                    <h6 class="text-muted">{{ this.CandidateInfo[0].FName }}</h6>
+                                    <h6 class="text-muted">{{ this.CandidateInfo.FName }}</h6>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="font-weight-bold">Last Name:</p>
-                                    <h6 class="text-muted">{{ this.CandidateInfo[0].LName }}</h6>
+                                    <h6 class="text-muted">{{ this.CandidateInfo.LName }}</h6>
                                 </div>
                             </div>
                             <div class="row mt-5 text-center">
                                 <div class="col-sm-6">
                                     <p class="font-weight-bold">Email:</p>
-                                    <h6 class="text-muted">{{ this.CandidateInfo[0].Email }}</h6>
+                                    <h6 class="text-muted">{{ this.CandidateInfo.Email }}</h6>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="font-weight-bold">Phone:</p>
-                                    <h6 class="text-muted">{{ this.CandidateInfo[0].Phoneno }}</h6>
+                                    <h6 class="text-muted">{{ this.CandidateInfo.Phoneno }}</h6>
                                 </div>
                             </div>
                         </div>

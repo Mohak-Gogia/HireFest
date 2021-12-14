@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HireFestDAL", "HireFestDAL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HireFest.DAL.Models", "HireFest.DAL.Models\HireFest.DAL.Models.csproj", "{9D66FE95-EB0D-43E6-9EC4-F1F91A90BA67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HireFest.UnitTests", "HireFest.UnitTests\HireFest.UnitTests.csproj", "{B1D0C392-ADD1-49A4-90B4-88DCC4543AB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9D66FE95-EB0D-43E6-9EC4-F1F91A90BA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D66FE95-EB0D-43E6-9EC4-F1F91A90BA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D66FE95-EB0D-43E6-9EC4-F1F91A90BA67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D0C392-ADD1-49A4-90B4-88DCC4543AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D0C392-ADD1-49A4-90B4-88DCC4543AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D0C392-ADD1-49A4-90B4-88DCC4543AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D0C392-ADD1-49A4-90B4-88DCC4543AB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

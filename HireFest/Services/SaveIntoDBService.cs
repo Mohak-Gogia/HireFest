@@ -7,7 +7,13 @@ using System.Web;
 
 namespace HireFest.Services
 {
-    public class SaveIntoDBService
+    public interface ISaveIntoDBService
+    {
+        void SaveResult(CandidateResult result);
+        void SaveResponses(CandidateResponse resp);
+
+    }
+    public class SaveIntoDBService : ISaveIntoDBService
     {
         public void SaveResult(CandidateResult result)
         {

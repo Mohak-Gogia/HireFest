@@ -1,13 +1,13 @@
 export class CandidateDetails {
-    Fname: string;
-    Lname: string;
-    PhnNum: string;
+    FName: string;
+    LName: string;
+    Phoneno: string;
     Email: string;
 
     constructor(fname: string, lname: string, phnnum: string, email: string){
-        this.Fname = fname;
-        this.Lname = lname;
-        this.PhnNum = phnnum;
+        this.FName = fname;
+        this.LName = lname;
+        this.Phoneno = phnnum;
         this.Email = email;
     }
 }

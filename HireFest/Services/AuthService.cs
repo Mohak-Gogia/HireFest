@@ -7,7 +7,13 @@ using System.Web;
 
 namespace HireFest.Services
 {
-    public class AuthService
+    public interface IAuthService
+    {
+        int LoginUser(Register acc);
+        void SignupUser(Register acc);
+    }
+
+    public class AuthService : IAuthService
     {
         public int LoginUser(Register acc)
         {

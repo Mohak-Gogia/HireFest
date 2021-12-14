@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FetchInfoService } from '../shared/fetch-info.service';
+import { CandidateDetails } from '../models/CandidateDetails';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(public service : FetchInfoService,public router: Router) { }
 
-  CandidateInfo!: any;
+  CandidateInfo!: CandidateDetails;
 
   ngOnInit(): void {
     this.service.fetchCandidateInfo().subscribe(
